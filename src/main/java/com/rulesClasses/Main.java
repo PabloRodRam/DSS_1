@@ -19,7 +19,7 @@ public class Main {
 	private static UserManager dbMan = new DBManagerSQL();
 	//private static UserManager userMan = (UserManager) new User(); //Alfonso? Revisa esto porfi
 	
-	
+	//te miro y te comento
 	public static void main(String[] args) throws Exception, IOException{
 	dbMan.connect();
 	//	userMan.connect();
