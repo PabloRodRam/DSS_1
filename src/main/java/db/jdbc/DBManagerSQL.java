@@ -24,30 +24,9 @@ public class DBManagerSQL implements UserManager{
 			}else {
 				System.out.print("no se ha conectado la BD"+"\n");
 			}
-			
-			
-			/*String[] tableNames =  {"Patient", "Disease", "Symptoms", "Drugs", "patient_disease", "patient_drug",
-					"symptom_drug", "symptom_disease", "patient_symptom"};
-			DatabaseMetaData metadata = c.getMetaData();
-			//ResultSet resultSet = null;
-			
-			
-			
-			for (String tableName : tableNames) {
-			    ResultSet resultSet = metadata.getTables(null, null, tableName, null);
-			    if (!resultSet.next()) {
-			        System.out.println("The tables dont exist, so we create them.");
-			        this.createTables();
-			        
-			    } else {
-			        System.out.println("Table " + tableName + " exists.");
-			    }
-			}*/
-			
+
 			
 			this.createTables();
-			
-			
 			
 			
 			
@@ -99,9 +78,9 @@ public class DBManagerSQL implements UserManager{
 		String sql1 = "CREATE TABLE Patient "
 					   + "(id		INTEGER		PRIMARY		KEY	AUTOINCREMENT,"
 					   + " name		TEXT		NOT NULL," 
-					   + " gender 	ENUM		NOT NULL,"
-					   + " age		INTEGER		NOT NULL,"
-					   + " userId	INTEGER		NOT NULL	UNIQUE)";
+					   + " gender 	ENUM		," //NOT NULL
+					   + " age		INTEGER		,"//NOT NULL
+					   + " userId	INTEGER			UNIQUE)";//NOT NULL
 		
 		
 			stmt1.executeUpdate(sql1);
@@ -113,8 +92,8 @@ public class DBManagerSQL implements UserManager{
 		String sql2 = "CREATE TABLE Disease "
 				   + "(id			INTEGER		PRIMARY		KEY	AUTOINCREMENT,"
 				   + " name			TEXT		NOT NULL," 
-				   + " basicInfo	TEXT		NOT NULL," 
-				   + " link			TEXT		NOT NULL," 
+				   + " basicInfo	TEXT		," //NOT NULL
+				   + " link			TEXT		," //NOT NULL
 				   + " scoreMax		INTEGER)";
 				  
 		stmt2.executeUpdate(sql2);

@@ -72,6 +72,8 @@ public class PatientPojo implements Serializable { //Serializable is used to hav
 	}
 	
 	
+	//TIO ESTO ESTA MAL -> AHORA LO REVISAS NAT
+	
     public boolean detectSym(String name) {
     	boolean compro= false;
     	for (int i=0; i< symptoms.size();i++) {

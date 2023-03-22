@@ -18,8 +18,8 @@ public class PatientSQL implements PatientManager{
 		
 		try {
 
-			String sql = "INSERT INTO Patient (name, gender, age /*, userId*/)";
-			sql+= " VALUES (?,?,?,?,?,?)";
+			String sql = "INSERT INTO Patient (name, gender, age )";
+			sql+= " VALUES (?,?,?)";
 			PreparedStatement pstmt = DBManagerSQL.c.prepareStatement(sql); 
 			
 			//pstmt.setInt(1, patient.getId());
@@ -69,31 +69,255 @@ public class PatientSQL implements PatientManager{
 		return thePatients;
 	}
 	
-	/*@Override
-	public List<String> getPatientsByName() {
-		List<String> thePatients = new ArrayList<String>();
+	
+	
+	
+	//NUEVO A PONER EN EL NUEVO PROYECTO
+	
+		//ADD SYMPTOMS TO A SPECIFIC PATIENT
+		@Override
+		public void addSymptomsToPatient(PatientPojo patient, SymptomsPojo symptom) {
+			
+			try {
+	
+				String sql = "INSERT INTO patient_symptom (patient_id, symptom_id )";
+				sql+= " VALUES (?,?)";
+				PreparedStatement pstmt = DBManagerSQL.c.prepareStatement(sql); 
+				
+				//pstmt.setInt(1, patient.getId());
+				pstmt.setInt(1,patient.getId());
+				pstmt.setInt(2,symptom.getId());
+	
+				
+				pstmt.executeUpdate();
+				pstmt.close();
+			
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			// TODO Auto-generated method stub
+		}//addSymptomsToPatient
+	
+	
 		
-		try {
-			//String sql = "SELECT type FROM animals_characteristics"; 			    
-			PreparedStatement prep = JDBCManager.c.prepareStatement(sql);	
-			ResultSet rs = prep.executeQuery();
+		
+		//RETURN PATIENTS BY ID OR BY NAME
+		public List<Integer> listPatientsSymptomsById(Integer id_patient) { //Mostramos los sintomas de un paciente especifico
+			
+			List<Integer> thePatientSymptomsById = new ArrayList<Integer>();
+			
+			try {	
+				
+				String sql = "SELECT * FROM patient_symptom WHERE patient_id LIKE ?"; 			
+				PreparedStatement prep = DBManagerSQL.c.prepareStatement(sql);	
+				ResultSet rs = prep.executeQuery();
 			
 			while (rs.next()) { 
-				String type = rs.getString("type");
-				typesOfAnimals.add(type);
-			}
+				int symptom_id = rs.getInt("symptom_id");
+				thePatientSymptomsById.add(symptom_id);
+		}
 			
-			
-			//System.out.println(sql);
+			prep.close();
 			rs.close();
-			prep.close();// Close database connection
-				
-			}catch(Exception ex) {
-				ex.printStackTrace();
+			
+			
+			} catch(Exception e) {
+				e.printStackTrace();
 			}
+			return thePatientSymptomsById;
+		}
 		
-	return typesOfAnimals;	
-	}	*/
-	
+		
+		
+		public List<SymptomsPojo> listSymptomsByName(List<Integer> thePatientSymptoms ) { //Buscamos el sintoma que es según el id q le pasemos del paciente
+			
+			List<SymptomsPojo> thePatientSymptomsByName = new ArrayList<SymptomsPojo>();
+			
+			try {	
+				String sql = "SELECT * FROM Symptom WHERE id LIKE ?"; 			
+				PreparedStatement prep = DBManagerSQL.c.prepareStatement(sql);	
+				ResultSet rs = prep.executeQuery();
+			
+			while (rs.next()) { 
+				String name = rs.getString("name");
+				SymptomsPojo symptom = new SymptomsPojo(name);
+				thePatientSymptomsByName.add(symptom);
+		}
+			
+			prep.close();
+			rs.close();
+			
+			
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return thePatientSymptomsByName;
+		}
 
-}//class
+
+		//RETURN DRUGS BY ID OR BY NAME
+		
+		public List<Integer> listPatientsDrugsById(Integer id_patient) { //Mostramos las medicinas q toma un paciente especifico
+			
+			List<Integer> thePatientDrugsById = new ArrayList<Integer>();
+			
+			try {	
+				
+				String sql = "SELECT * FROM patient_drug WHERE patient_id LIKE ?"; 			
+				PreparedStatement prep = DBManagerSQL.c.prepareStatement(sql);	
+				ResultSet rs = prep.executeQuery();
+			
+			while (rs.next()) { 
+				int drug_id = rs.getInt("drug_id");
+				thePatientDrugsById.add(drug_id);
+		}
+			
+			prep.close();
+			rs.close();
+			
+			
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return thePatientDrugsById;
+		}
+		
+		
+		//ADD DRUGS TO A SPECIFIC PATIENT
+		@Override
+		public void addSDrugsToPatient(PatientPojo patient, DrugPojo drug) {
+			
+			try {
+	
+				String sql = "INSERT INTO patient_symptom (patient_id, drug_id )";
+				sql+= " VALUES (?,?)";
+				PreparedStatement pstmt = DBManagerSQL.c.prepareStatement(sql); 
+				
+				//pstmt.setInt(1, patient.getId());
+				pstmt.setInt(1,patient.getId());
+				pstmt.setInt(2,drug.getId());
+	
+				
+				pstmt.executeUpdate();
+				pstmt.close();
+			
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			// TODO Auto-generated method stub
+		}//addSymptomsToPatient
+		
+		
+		
+		public List<DrugPojo> listDrugsByName(List<Integer> theDrugsByName ) { //Buscamos la medicina que es según el id q le pasemos del paciente
+			
+			List<DrugPojo> thePatientDrugsByName = new ArrayList<DrugPojo>();
+			
+			try {	
+				String sql = "SELECT * FROM Drugs WHERE id LIKE ?"; 			
+				PreparedStatement prep = DBManagerSQL.c.prepareStatement(sql);	
+				ResultSet rs = prep.executeQuery();
+			
+			while (rs.next()) { 
+				String name = rs.getString("name");
+				DrugPojo drug = new DrugPojo(name);
+				thePatientDrugsByName.add(drug);
+		}
+			
+			prep.close();
+			rs.close();
+			
+			
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return thePatientDrugsByName;
+		}
+
+
+		
+		
+		
+		//ADD DISEASE TO A SPECIFIC PATIENT
+				@Override
+				public void addSDiseasesToPatient(PatientPojo patient, DiseasePojo disease) {
+					
+					try {
+			
+						String sql = "INSERT INTO patient_symptom (patient_id, disease_id )";
+						sql+= " VALUES (?,?)";
+						PreparedStatement pstmt = DBManagerSQL.c.prepareStatement(sql); 
+						
+						//pstmt.setInt(1, patient.getId());
+						pstmt.setInt(1,patient.getId());
+						pstmt.setInt(2,disease.getId());
+			
+						
+						pstmt.executeUpdate();
+						pstmt.close();
+					
+					} catch(Exception e) {
+						e.printStackTrace();
+					}
+					// TODO Auto-generated method stub
+				}//addSymptomsToPatient
+				
+				
+		//RETURN DISEASES BY ID OR BY NAME
+
+		public List<Integer> listPatientsDiseasesById(Integer id_patient) { //Mostramos las medicinas q toma un paciente especifico
+			
+			List<Integer> thePatientDiseasesById = new ArrayList<Integer>();
+			
+			try {	
+				
+				String sql = "SELECT * FROM patient_disease WHERE patient_id LIKE ?"; 			
+				PreparedStatement prep = DBManagerSQL.c.prepareStatement(sql);	
+				ResultSet rs = prep.executeQuery();
+			
+			while (rs.next()) { 
+				int disease_id = rs.getInt("drug_id");
+				thePatientDiseasesById.add(disease_id);
+		}
+			
+			prep.close();
+			rs.close();
+			
+			
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return thePatientDiseasesById;
+		}
+		
+		
+		
+		public List<DiseasePojo> listDiseasesByName(List<Integer> theDiseasesByName ) { //Buscamos la medicina que es según el id q le pasemos del paciente
+			
+			List<DiseasePojo> thePatientDiseasesByName = new ArrayList<DiseasePojo>();
+			
+			try {	
+				String sql = "SELECT * FROM Disease WHERE id LIKE ?"; 			
+				PreparedStatement prep = DBManagerSQL.c.prepareStatement(sql);	
+				ResultSet rs = prep.executeQuery();
+			
+			while (rs.next()) { 
+				String name = rs.getString("name");
+				DiseasePojo disease = new DiseasePojo(name);
+				thePatientDiseasesByName.add(disease);
+				
+		}
+			
+			prep.close();
+			rs.close();
+			
+			
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+			return thePatientDiseasesByName;
+		}
+
+
+
+	}//class

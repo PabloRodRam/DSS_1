@@ -10,6 +10,10 @@ import db.pojos.DiseasePojo;
 import db.pojos.PatientPojo;
 
 public class DiseaseSQL implements DiseaseManager{
+	
+
+
+
 	public void addDisease(DiseasePojo disease) {
 		
 		try {
@@ -20,7 +24,7 @@ public class DiseaseSQL implements DiseaseManager{
 			
 			//pstmt.setInt(1, disease.getId());
 			pstmt.setString(1,disease.getName().toString());
-			pstmt.setString(2,disease.getBasicInfo().toString());
+			pstmt.setString(2,disease.getBasicInfo()); //Como es null no me deja meterlo
 			pstmt.setString(3,disease.getLink());
 			pstmt.setFloat(4,disease.getScore_max());
 			
@@ -33,6 +37,7 @@ public class DiseaseSQL implements DiseaseManager{
 		}
 	}//addPDisease
 	
+
 	
 	
 	public List<DiseasePojo> listDiseases(){

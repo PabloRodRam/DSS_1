@@ -38,10 +38,10 @@ public class DiseasePojo implements Serializable{
 
 
 
-	public DiseasePojo() {
+	public DiseasePojo(String name) {
 		super();
+		this.name = name;
 	}
-
 
 
 	public DiseasePojo(Integer id, String name, String basicInfo, String link, Float score_max,

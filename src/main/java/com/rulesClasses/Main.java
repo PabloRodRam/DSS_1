@@ -18,10 +18,13 @@ import db.pojos.*;
 public class Main {
 	private static UserManager dbMan = new DBManagerSQL();
 	//private static UserManager userMan = (UserManager) new User(); //Alfonso? Revisa esto porfi
-	
-	//te miro y te comento
+	private static SymptomsManager symMan = new SymptomsSQL();
+	private static DrugsManager drugMan = new DrugSQL();
+	private static DiseaseManager disMan = new DiseaseSQL();
+	private static PatientManager patMan = new PatientSQL();
 	public static void main(String[] args) throws Exception, IOException{
-	dbMan.connect();
+	
+		dbMan.connect();
 	//	userMan.connect();
 	
 		
@@ -68,21 +71,47 @@ public class Main {
 		
 		List<PatientPojo> listaP = new ArrayList<PatientPojo>();
 		
-		PatientPojo pat1= new PatientPojo("Jose Alberto",listaD,listaDr,listaS);
-
+		PatientPojo pat1= new PatientPojo("Jose Alberto",Gender.MASCULINE, 20); //,listaD,listaDr,listaS);
+		
+		//patMan.addPatient(pat1);
+		
+		for(int i=1; i<listaS.size();i++) { //Añadimos los sintomas existentes a la DB
+			//symMan.addSymptom(listaS.get(i));
+		}
+		
+		for(int i=1; i<listaD.size();i++) { //Añadimos los diseases existentes a la DB
+			//disMan.addDisease(listaD.get(i));
+		}
+		
+		//NO SE METIO BIEN LOS DISEASES
+		//  Y NO ESTA SACANDO BIEN LA INFO PQ HAY COSAS Q SON NULL
+		
+		for(int i=1; i<listaDr.size();i++) { //Añadimos los drugs existentes a la DB
+			//drugMan.addDrug(listaDr.get(i));
+		}
+		
+		Integer tam =null;
+		if(listaS.size() > listaD.size()) {
+			tam = listaS.size();
+			
+		}else {
+				if(listaS.size()>listaDr.size()) {
+					tam = listaS.size();
+				}else {
+					tam = listaDr.size();
+				}
+		//ListaD>ListaD	
+		if(listaD.size()>listaDr.size()) {
+			tam = listaD.size();					
+			}else {
+				tam = listaDr.size();
+			}
+		}
 		
 		
-		/*boolean shortness_breath = false,  rapid_Breathing= true,  wheezing= false,  cyanosis= false,
-		 headache= false,  confusion_Disorientation= true,  irregular_heartbeat= false,  chest_pain= false,
-		 fatigue_Weakness= false, dizziness= true;
-		
-		Disease dis1 = new Disease();
-		
-		Symptoms sym1 = new Symptoms(shortness_breath, rapid_Breathing, wheezing, cyanosis, headache, 
-				confusion_Disorientation, irregular_heartbeat, chest_pain, fatigue_Weakness, dizziness);
-        System.out.println(dis1);
-        System.out.println(sym1);
-        */
+		for(int a=1; a<=tam; a++) {
+			
+		}
         
         //Hellou
         
@@ -107,7 +136,7 @@ public class Main {
        
        
         // and fire the rules
-        ksession.fireAllRules();
+        ksession.fireAllRules(); //AQUI ALGO ME DA ERROR
         
 
         // AFTER Triggering the rules, the attribute authorized of some operations have been modified
