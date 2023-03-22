@@ -1193,6 +1193,7 @@ rule "Chronic cough"
         
 
 end
+
 /*
 rule "Fever or chills2"
 	dialect "java"
@@ -1210,7 +1211,7 @@ then
 		medicine.setAntihistamines(medicine.isAntihistamines() - 0.6);     
 end
 
-/*
+
 Rule for Fatigue:
 
 rule "Fatigue"
@@ -1262,7 +1263,8 @@ medicine.setChemotherapy_drugs(medicine.isChemotherapy_drugs() - 2);
 medicine.setAntipsychotics(medicine.isAntipsychotics() - 1);
 medicine.setStimulants(medicine.isStimulants() - 1);
 medicine.set
-/*
+
+
 rule "General"
     dialect "java"
 
