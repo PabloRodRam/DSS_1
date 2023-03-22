@@ -80,7 +80,7 @@ public class DBManagerSQL implements UserManager{
 					   + " name		TEXT		NOT NULL," 
 					   + " gender 	ENUM		," //NOT NULL
 					   + " age		INTEGER		,"//NOT NULL
-					   + " userId	INTEGER			UNIQUE)";//NOT NULL
+					   + " userId	INTEGER		UNIQUE)";//NOT NULL
 		
 		
 			stmt1.executeUpdate(sql1);
@@ -167,6 +167,7 @@ public class DBManagerSQL implements UserManager{
 		stmt8.executeUpdate(sql8);
 		stmt8.close();
 		
+	
 		
 		Statement stmt9 = c.createStatement();
 		String sql9 = "CREATE TABLE patient_symptom "

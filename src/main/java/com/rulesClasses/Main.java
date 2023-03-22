@@ -71,9 +71,9 @@ public class Main {
 		
 		List<PatientPojo> listaP = new ArrayList<PatientPojo>();
 		
-		PatientPojo pat1= new PatientPojo("Jose Alberto",Gender.MASCULINE, 20); //,listaD,listaDr,listaS);
-		
-		//patMan.addPatient(pat1);
+		PatientPojo pat1= new PatientPojo("Jose Alberto",listaD,listaDr,listaS);
+		PatientPojo pat2= new PatientPojo("Pepe",Gender.MASCULINE, 20);
+		//patMan.addPatient(pat2);
 		
 		for(int i=1; i<listaS.size();i++) { //Añadimos los sintomas existentes a la DB
 			//symMan.addSymptom(listaS.get(i));
@@ -90,31 +90,52 @@ public class Main {
 			//drugMan.addDrug(listaDr.get(i));
 		}
 		
-		Integer tam =null;
-		if(listaS.size() > listaD.size()) {
-			tam = listaS.size();
-			
-		}else {
-				if(listaS.size()>listaDr.size()) {
-					tam = listaS.size();
-				}else {
-					tam = listaDr.size();
-				}
-		//ListaD>ListaD	
-		if(listaD.size()>listaDr.size()) {
-			tam = listaD.size();					
-			}else {
-				tam = listaDr.size();
+		
+		//LE AÑADIMOS LOS SINTOMAS; DRUGS; ETC AL PCIENTE
+		
+			for(int i=1; i<listaS.size();i++) { //Añadimos los sintomas existentes a la DB
+				//patMan.addSymptomsToPatient(pat1, listaS.get(i));
 			}
-		}
 		
-		
-		for(int a=1; a<=tam; a++) {
+			for(int i=1; i<listaD.size();i++) { //Añadimos los sintomas existentes a la DB
+				//patMan.addDiseasesToPatient(pat1, listaD.get(i));
+			}
 			
-		}
-        
-        //Hellou
-        
+			for(int i=1; i<listaDr.size();i++) { //Añadimos los sintomas existentes a la DB
+				//patMan.addDrugsToPatient(pat1, listaDr.get(i));
+			}
+			
+			
+			/*List<SymptomsPojo> thePatientSymptoms = new ArrayList<SymptomsPojo>();
+			thePatientSymptoms = symMan.listSymptoms();
+			for(int i = 0; i<thePatientSymptoms.size(); i++) {
+				System.out.println(thePatientSymptoms.get(i)+"\n");
+			}*/
+			
+			/*List<PatientPojo> thePatients = new ArrayList<PatientPojo>();
+			thePatients = patMan.listPatients();
+			for(int i = 0; i<thePatients.size(); i++) {
+				System.out.println(thePatients.get(i)+"\n");
+			}*/
+			
+			
+			List<SymptomsPojo> theSymptoms = new ArrayList<SymptomsPojo>();
+			List<PatientPojo> thePatients = new ArrayList<PatientPojo>();
+			theSymptoms = symMan.listSymptoms();
+			thePatients = patMan.listPatients();
+			
+			for(int i = 0; i<thePatients.size(); i++) {
+				for(int j = 0; j<theSymptoms.size(); j++) {
+					patMan.addSymptomsToPatient(thePatients.get(i), theSymptoms.get(j));
+				}
+			}*
+			
+//AQUI SE ROMPEN COSAS -> Abort due to constraint violation (UNIQUE constraint failed: patient_symptom.patient_id, patient_symptom.symptom_id)
+			
+				
+				
+				
+       
         KieServices ks = KieServices.Factory.get();
         KieContainer kc = ks.getKieClasspathContainer();
 
@@ -126,7 +147,8 @@ public class Main {
         // uncomment the next line
         // KieRuntimeLogger logger = ks.getLoggers().newThreadedFileLogger( ksession, "./helloworld", 1000 );
         // The application can insert facts into the session
-        System.out.println(pat1);
+       
+        // System.out.println(pat1);
         
         
         System.out.println("\n\n\n\n");

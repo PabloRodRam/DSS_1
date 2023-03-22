@@ -53,9 +53,19 @@ public class PatientSQL implements PatientManager{
 			String gender = rs.getString("gender"); //Revisar esto pq es un ENUM
 			int age = rs.getInt("age"); 
 			
-
-			//PatientPojo unpatient = new PatientPojo(id, name, gender, age);
 			
+			Gender realGender = null ; //ENUM
+			
+			if(rs.getString("gender").equalsIgnoreCase("FEMEMINE")) {
+				realGender = Gender.FEMEMINE;
+			}else {
+				if(rs.getString("gender").equalsIgnoreCase("MASCULINE")) {
+					realGender = Gender.MASCULINE;
+			}}
+
+			
+			PatientPojo unpatient = new PatientPojo(id, name, realGender, age);
+			thePatients.add(unpatient);
 			
 			}
 
@@ -84,9 +94,11 @@ public class PatientSQL implements PatientManager{
 				sql+= " VALUES (?,?)";
 				PreparedStatement pstmt = DBManagerSQL.c.prepareStatement(sql); 
 				
-				//pstmt.setInt(1, patient.getId());
+				//System.out.println("Paciente en SQL:"+patient+"\n");
 				pstmt.setInt(1,patient.getId());
 				pstmt.setInt(2,symptom.getId());
+
+				//System.out.println("Sintoma en SQL:"+symptom+" +id:"+symptom.getId()+"\n");
 	
 				
 				pstmt.executeUpdate();
@@ -185,11 +197,11 @@ public class PatientSQL implements PatientManager{
 		
 		//ADD DRUGS TO A SPECIFIC PATIENT
 		@Override
-		public void addSDrugsToPatient(PatientPojo patient, DrugPojo drug) {
+		public void addDrugsToPatient(PatientPojo patient, DrugPojo drug) {
 			
 			try {
 	
-				String sql = "INSERT INTO patient_symptom (patient_id, drug_id )";
+				String sql = "INSERT INTO patient_drug (patient_id, drug_id )";
 				sql+= " VALUES (?,?)";
 				PreparedStatement pstmt = DBManagerSQL.c.prepareStatement(sql); 
 				
@@ -240,7 +252,7 @@ public class PatientSQL implements PatientManager{
 		
 		//ADD DISEASE TO A SPECIFIC PATIENT
 				@Override
-				public void addSDiseasesToPatient(PatientPojo patient, DiseasePojo disease) {
+				public void addDiseasesToPatient(PatientPojo patient, DiseasePojo disease) {
 					
 					try {
 			

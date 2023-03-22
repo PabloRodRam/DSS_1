@@ -9,8 +9,8 @@ public interface PatientManager {
 	public void addPatient(PatientPojo patient);
 	public List<PatientPojo> listPatients();
 	void addSymptomsToPatient(PatientPojo patient, SymptomsPojo symptom);
-	void addSDrugsToPatient(PatientPojo patient, DrugPojo drug);
-	void addSDiseasesToPatient(PatientPojo patient, DiseasePojo disease);
+	void addDrugsToPatient(PatientPojo patient, DrugPojo drug);
+	void addDiseasesToPatient(PatientPojo patient, DiseasePojo disease);
 	
 	public List<Integer> listPatientsSymptomsById(Integer id_patient);
 	public List<SymptomsPojo> listSymptomsByName(List<Integer> thePatientSymptoms );
@@ -18,6 +18,7 @@ public interface PatientManager {
 	public List<DrugPojo> listDrugsByName(List<Integer> theDrugsByName );
 	public List<Integer> listPatientsDiseasesById(Integer id_patient);
 	public List<DiseasePojo> listDiseasesByName(List<Integer> theDiseasesByName );
+	
 	
 
 }

@@ -45,7 +45,7 @@ public class SymptomsSQL implements SymptomsManager {
 			int id = rs.getInt("id");	
 			String name = rs.getString("name");
 			
-			SymptomsPojo unSymptom = new SymptomsPojo(name, id);
+			SymptomsPojo unSymptom = new SymptomsPojo(id, name);
 			
 			theSymptoms.add(unSymptom); //no entiendo esto
 			
